@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    <title>CODIV-19 SURVEY</title>
+    <style>
+        html {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        {% include "partial/nav.html" %}
+
+    </header>
+
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        {% include "partial/footer.html" %}
+    </footer>
+
+</body>
+
+</html>

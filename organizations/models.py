@@ -12,7 +12,7 @@ class Organization(core_model.TimeStampedModel):
         "users.User", on_delete=models.CASCADE, related_name="master"
     )
     location = models.CharField(max_length=300)
-    phone = PhoneField(blank=True, help_text="Contact phone number")
+    phone = PhoneField(help_text="Contact phone number")
     users = models.ManyToManyField("users.User", related_name="users")
 
     def __str__(self):

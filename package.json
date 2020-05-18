@@ -1,0 +1,31 @@
+{
+  "name": "codiv_check",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "css": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/7cmdehdrb/CODIV_check.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/7cmdehdrb/CODIV_check/issues"
+  },
+  "homepage": "https://github.com/7cmdehdrb/CODIV_check#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.1.0",
+    "node-sass": "^4.14.1",
+    "tailwindcss": "^1.4.6"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.0"
+  }
+}

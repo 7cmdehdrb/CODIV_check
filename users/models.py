@@ -38,6 +38,7 @@ class User(AbstractUser):
     )
 
     avatar = models.ImageField(upload_to="avatars", blank=True)
+    nickname = models.CharField(max_length=20, blank=True)
     age = models.IntegerField(default=0)
     gender = models.CharField(choices=GENDER_CHOICE, default=GENDER_MALE, max_length=6)
     job = models.ForeignKey(

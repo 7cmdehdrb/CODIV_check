@@ -1,0 +1,23 @@
+{% load static %}
+
+<div class="w-full flex h-20 bg-white border-b-2 border-gray-500">
+
+    <a href="{% url "core:core" %}" class="pl-5 py-1 h-full">
+        <img src="{% static "image/logo.svg" %}" alt="logo" class="h-full items-center justify-center">
+    </a>
+    <ul class="w-full h-full flex justify-end items-center mr-2">
+        <a href="#" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
+            <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">설문참여</li>
+        </a>
+        <a href="#" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
+            <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">그룹관리</li>
+        </a>
+        <a href="#" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
+            <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">로그인</li>
+        </a>
+        <a href="{% url "user:signup" %}" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
+            <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">회원가입</li>
+        </a>
+    </ul>
+
+</div>

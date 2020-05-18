@@ -25,7 +25,7 @@ SECRET_KEY = "6mbnl&enp_9ejrjo^js+te7t&gez9gq*1h=u#u1@l@($!jw9!*"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "110.10.227.103", "192.168.0.1"]
 
 # Application definition
 
@@ -43,6 +43,7 @@ PROJECT_APPS = [
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "organizations.apps.OrganizationsConfig",
+    "surveys.apps.SurveysConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
@@ -62,7 +63,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -115,10 +116,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+TIME_ZONE = "Asia/Seoul"
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+MEDIA_URL = "/media/"
 
 AUTH_USER_MODEL = "users.User"

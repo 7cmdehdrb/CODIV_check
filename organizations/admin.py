@@ -19,3 +19,5 @@ class OrganizationAdmin(admin.ModelAdmin):
     )
 
     filter_horizontal = ("users",)
+
+    search_fields = ("name", "master__username")
