@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from datetime import datetime
 from django.utils.dateformat import DateFormat
-from django.views.generic import FormView, DetailView, UpdateView
+from django.views.generic import FormView, DetailView, UpdateView, ListView
 from django.urls import reverse_lazy
+from django.contrib import messages
+from django.core.paginator import Paginator
 from . import forms, models
+from organizations import models as organization_model
+from users import models as user_model
 
 # Create your views here.
 
@@ -13,20 +17,73 @@ class SurveyView(FormView):
     template_name = "surveys/newSurvey.html"
     form_class = forms.SurveyForm
 
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests: instantiate a blank version of the form."""
+        context = self.get_context_data(**kwargs)
+        context["todate"] = DateFormat(datetime.now()).format("Y-m-d")
+        return self.render_to_response(context)
+
     def get_success_url(self):
-        # next_arg = self.request.GET.get("next")
-        # if next_arg is not None:
-        #     return next_arg
-        # else:
-        #     return reverse_lazy("core:core")
-        return reverse("core:core")
+        return reverse_lazy("core:core")
 
     def get_initial(self):
         initial = super().get_initial()
         initial["user"] = self.request.user
-        initial["data"] = DateFormat(datetime.now()).format("Y-m-d")
+        initial["date"] = DateFormat(datetime.now()).format("Y-m-d")
         return initial
 
     def form_valid(self, form):
-        form.save()
+
+        moral = form.cleaned_data.get("question4")
+
+        survey = models.Survey.objects.filter(
+            date=DateFormat(datetime.now()).format("Y-m-d")
+        ).filter(user=self.request.user)
+
+        if moral:
+
+            if len(survey) == 0:
+                messages.add_message(self.request, messages.INFO, "감사합니다!")
+                form.save()
+
+            else:
+                messages.add_message(self.request, messages.ERROR, "오늘은 이미 참여하였습니다")
+
+        else:
+            messages.add_message(self.request, messages.ERROR, "당신의 양심은 안녕하십니까?")
+
         return super().form_valid(form)
+
+
+class SurveyListView(ListView):
+    def get(self, request):
+
+        result = []
+
+        organizaion = organization_model.Organization.objects.filter(
+            master__username=self.request.user
+        )[0]
+
+        user = list(user_model.User.objects.filter(organization__name=organizaion))
+
+        for u in user:
+            servey = models.Survey.objects.filter(
+                user__username=u, date=DateFormat(datetime.now()).format("Y-m-d")
+            )
+
+            if len(servey) != 0:
+                result.append(servey[0])
+            else:
+                temp = {"user": u, "option": True}
+                result.append(temp)
+
+        paginator = Paginator(result, 30)
+        page = request.GET.get("page", 1)
+        surveys = paginator.get_page(page)
+        get_copy = request.GET.copy()
+        address = get_copy.pop("page", True) and get_copy.urlencode()
+        return render(
+            request,
+            "surveys/surveylist.html",
+            {"surveys": surveys, "address": address},
+        )

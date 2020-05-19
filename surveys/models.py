@@ -19,3 +19,7 @@ class Survey(core_model.TimeStampedModel):
 
     def __str__(self):
         return str(self.date) + " : " + self.user.username
+
+    class Meta:
+        ordering = ["user"]
+

@@ -5,4 +5,5 @@ app_name = "survey"
 
 urlpatterns = [
     path("new/", survey_view.SurveyView.as_view(), name="newsurvey"),
+    path("list/", survey_view.SurveyListView.as_view(), name="list"),
 ]

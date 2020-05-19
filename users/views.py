@@ -23,6 +23,7 @@ class SignUpView(FormView):
         if user is not None:
             login(self.request, user)
             user.verify_email()
+            messages.add_message(self.request, messages.INFO, "회원가입 완료!\n이메일 인증을 해주세요")
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -41,6 +42,9 @@ class LoginView(FormView):
         user = authenticate(self.request, username=email, password=password)
         if user is not None:
             login(self.request, user)
+            messages.add_message(self.request, messages.INFO, "환영합니다")
+        else:
+            messages.add_message(self.request, messages.ERROR, "로그인 실패")
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -53,6 +57,7 @@ class LoginView(FormView):
 
 def logout_view(request):
     logout(request)
+    messages.add_message(request, messages.INFO, "안녕히가세요")
     return redirect(reverse("core:core"))
 
 
@@ -62,9 +67,9 @@ def complete_verification(request, key):
         user.email_verified = True
         user.email_secret = ""
         user.save()
+        messages.add_message(request, messages.INFO, "인증을 완료하셨습니다!")
         # to do: add succes message
     except models.User.DoesNotExist:
-        # to do: add error message
-        print("ERROR!")
+        messages.add_message(request, messages.ERROR, "인증을 완료할 수 없습니다")
         pass
     return redirect(reverse("core:core"))
