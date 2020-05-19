@@ -41,7 +41,7 @@ class SignUpForm(forms.ModelForm):
         password = self.cleaned_data.get("password")
         re_password = self.cleaned_data.get("re_password")
         if password != re_password:
-            raise forms.ValidationError("Password confirmation does not match")
+            raise forms.ValidationError("패스워드가 일치하지 않습니다")
         else:
             return password
 
@@ -65,7 +65,7 @@ class LoginForm(forms.Form):
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
         try:
-            user = models.User.objects.get(email=email)
+            user = models.User.objects.get(username=email)
             if user.check_password(password):
                 return self.cleaned_data
             else:

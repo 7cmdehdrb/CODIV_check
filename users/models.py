@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator, MaxValueValidator
+import uuid
 from core import models as core_model
 
 # Create your models here.
@@ -39,7 +41,9 @@ class User(AbstractUser):
 
     avatar = models.ImageField(upload_to="avatars", blank=True)
     nickname = models.CharField(max_length=20, blank=True)
-    age = models.IntegerField(default=0)
+    age = models.IntegerField(
+        default=15, validators=[MinValueValidator(15), MaxValueValidator(99)]
+    )
     gender = models.CharField(choices=GENDER_CHOICE, default=GENDER_MALE, max_length=6)
     job = models.ForeignKey(
         "Job", related_name="job", on_delete=models.CASCADE, null=True
@@ -48,5 +52,16 @@ class User(AbstractUser):
         "organizations.Organization", related_name="organization", blank=True
     )
 
+    email_secret = models.CharField(max_length=20)
+    email_verified = models.BooleanField(default=False)
+
     def __str__(self):
         return self.username
+
+    def verify_email(self):
+        if self.email_verified is False:
+            secret = uuid.uuid4().hex[:20]
+            self.email_secret = secret
+            # send email
+            self.save()
+        return

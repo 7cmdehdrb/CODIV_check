@@ -12,12 +12,21 @@
         <a href="#" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
             <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">그룹관리</li>
         </a>
+        {% if user.is_authenticated %}
+        <a href="{% url "user:logout" %}" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
+            <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">로그아웃</li>
+        </a>
         <a href="#" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
+            <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">{{user.nickname}}</li>
+        </a>
+        {% else %}
+        <a href="{% url "user:login" %}" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
             <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">로그인</li>
         </a>
         <a href="{% url "user:signup" %}" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
             <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">회원가입</li>
         </a>
+        {% endif%}
     </ul>
 
 </div>

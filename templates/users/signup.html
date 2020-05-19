@@ -13,27 +13,30 @@
 
             {{form.email.label}}
             {{form.email}}
-
+            <span class="font-bold text-red-600 text-center">{{form.email.errors}}</span>
+            
         </div>
-
+        
         <div class="block my-10 text-center border-black border-2 rounded-lg w-1/2 py-5 mx-auto">
-
+            
             {{form.nickname.label}}
             {{form.nickname}}
-
+            
         </div>
-
+        
         <div class="block my-10 text-center border-black border-2 rounded-lg w-1/2 py-5 mx-auto">
-
+            
             {{form.password.label}}
             {{form.password}}
-
+            <span class="font-bold text-red-600 text-center">{{form.password.errors}}</span>
+            
         </div>
-
+        
         <div class="block my-10 text-center border-black border-2 rounded-lg w-1/2 py-5 mx-auto">
-
+            
             {{form.re_password.label}}
             {{form.re_password}}
+            <span class="font-bold text-red-600 text-center">{{form.re_password.errors}}</span>
 
         </div>
 
