@@ -1,38 +1,56 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@700&display=swap"
-        rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>CODIV-19 SURVEY</title>
     <style>
-        html {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
+      html {
+        font-family: "Noto Sans KR", sans-serif;
+      }
+      .popup {
+        position: fixed;
+
+        width: 50%;
+        height: auto;
+
+        text-align: center;
+
+        background-color: white;
+        margin: 0 auto;
+        padding: 0;
+
+        border: 1;
+        border-width: 2px;
+        border-style: solid;
+        border-color: black;
+        border-radius: 20px;
+
+        z-index: 10;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <header>
-
-        {% include "partial/nav.html" %}
-
+      {% include "partial/nav.html" %}
     </header>
 
-
-    {% block content %}
-    {% endblock %}
+    {% block content %} {% endblock %}
 
     <footer>
-        {% include "partial/footer.html" %}
+      {% include "partial/footer.html" %}
     </footer>
-
-</body>
-
+  </body>
 </html>

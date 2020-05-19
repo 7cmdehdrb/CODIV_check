@@ -19,11 +19,22 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         (
             "Custom Profile",
-            {"fields": ("nickname", "avatar", "age", "gender", "job", "organization",)},
+            {
+                "fields": (
+                    "nickname",
+                    "avatar",
+                    "age",
+                    "gender",
+                    "job",
+                    "organization",
+                    "email_secret",
+                    "email_verified",
+                )
+            },
         ),
     )
 
-    list_display = ("nickname", "age", "gender", "email", "job")
+    list_display = ("nickname", "age", "gender", "email", "job", "email_verified")
 
     list_filter = (
         "gender",

@@ -22,6 +22,7 @@ class SignUpView(FormView):
         user = authenticate(self.request, username=email, password=password)
         if user is not None:
             login(self.request, user)
+            user.verify_email()
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -52,4 +53,18 @@ class LoginView(FormView):
 
 def logout_view(request):
     logout(request)
+    return redirect(reverse("core:core"))
+
+
+def complete_verification(request, key):
+    try:
+        user = models.User.objects.get(email_secret=key)
+        user.email_verified = True
+        user.email_secret = ""
+        user.save()
+        # to do: add succes message
+    except models.User.DoesNotExist:
+        # to do: add error message
+        print("ERROR!")
+        pass
     return redirect(reverse("core:core"))

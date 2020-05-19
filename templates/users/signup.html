@@ -2,8 +2,19 @@
 
 {% block content %}
 
+<div class="popup">
+
+    <div class="py-4">
+        당신은 모든 권리를 포기하고 노예가 됩니다
+    </div>
+
+    <button id="close" class="border-2 py-1 px-2 rounded-lg m-3 border-black hover:bg-gray-300" onclick="clicker();">동의합니다</button>
+</div>
+
+
 <div
     class="container my-10 mx-auto text-center border-2 border-black rounded-xlg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
+
 
     <form method="POST" action="{% url "user:signup" %}" class="">
 
@@ -61,10 +72,27 @@
 
         </div>
 
-        <button>SUBMIT</button>
+        <button style="display: none;">SUBMIT</button>
 
     </form>
 
 </div>
+
+<script>
+
+    const wins = document.querySelector(".popup");
+
+    const w = $(window).width();
+    const w2 = $(".popup").width();
+    wins.style.left = `${w/2 - w2/2}px`;
+
+    clicker = () => {
+
+        wins.style.display = "none";
+        $("button").show();
+
+    }
+
+</script>
 
 {% endblock content %}

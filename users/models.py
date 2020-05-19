@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 import uuid
+from emails import sendVerifyEmail
 from core import models as core_model
 
 # Create your models here.
@@ -52,7 +53,7 @@ class User(AbstractUser):
         "organizations.Organization", related_name="organization", blank=True
     )
 
-    email_secret = models.CharField(max_length=20)
+    email_secret = models.CharField(max_length=20, default=uuid.uuid4().hex[:20])
     email_verified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -60,8 +61,6 @@ class User(AbstractUser):
 
     def verify_email(self):
         if self.email_verified is False:
-            secret = uuid.uuid4().hex[:20]
-            self.email_secret = secret
-            # send email
+            sendVerifyEmail(self.email, self.email_secret)
             self.save()
         return
