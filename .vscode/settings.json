@@ -1,11 +1,11 @@
 {
-  "python.pythonPath": "C:\\Users\\3cmde\\.virtualenvs\\CODIV_check-n9qKPKJR\\Scripts\\python.exe",
-  "python.linting.pylintEnabled": false,
-  "python.linting.flake8Enabled": true,
-  "python.linting.enabled": true,
-  "editor.formatOnSave": true,
-  "python.formatting.provider": "black",
-  "python.linting.flake8Args": [
-    "--max-line-length=88"
-  ]
+  "python.pythonPath": "C:\\Users\\3cmde\\.virtualenvs\\CODIV_check-n9qKPKJR\\Scripts\\python.exe"
+  // "python.linting.pylintEnabled": false,
+  // "python.linting.flake8Enabled": true,
+  // "python.linting.enabled": true,
+  // "editor.formatOnSave": true,
+  // "python.formatting.provider": "black",
+  // "python.linting.flake8Args": [
+  //   "--max-line-length=88"
+  // ]
 }

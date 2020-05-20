@@ -1,50 +1,47 @@
-<div class="container my-10 mx-1 text-center border-2 border-black rounded-xlg w-1/4">
+<div
+  class="container my-10 text-center border-2 border-black rounded-xlg w-1/6 mx-1"
+>
+  {% if survey.option %}
 
-    <div class="py-2">
-        USER: {{survey.user.nickname}}
+  <div class="py-2">
+    USER: {{survey.user}}
+  </div>
+
+  <div class="py-2">
+    <span class="text-red-500 text-3xl object-center">NO DATA</span>
+  </div>
+
+  {% else %}
+
+  <div class="py-2">
+    USER: {{survey.user.nickname}}
+  </div>
+
+  <div class="py-2">
+    <div>
+      이태원: {% if survey.question1 %}
+      <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
+      {% else %}
+      <span class="text-red-500"><i class="fas fa-times-circle"></i></span>
+      {% endif %}
     </div>
 
-    {% if survey.option %}
-
-    <div class="py-2">
-
-        <span class="text-red-500 text-3xl object-center">NO DATA</span>
-
+    <div>
+      해외출국: {% if survey.question2 %}
+      <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
+      {% else %}
+      <span class="text-red-500"><i class="fas fa-times-circle"></i></span>
+      {% endif %}
     </div>
 
-    {% else %}
-
-    <div class="py-2">
-
-        <div>
-            이태원 클럽 다녀옴?:
-            {% if survey.question1 %}
-            <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
-            {% else %}
-            <span class="text-red-500"><i class="fas fa-times-circle"></i></span>
-            {% endif %}
-        </div>
-
-        <div>
-            해외 다녀왔음?:
-            {% if survey.question2 %}
-            <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
-            {% else %}
-            <span class="text-red-500"><i class="fas fa-times-circle"></i></span>
-            {% endif %}
-        </div>
-
-        <div>
-            기침 등 증상 있음?:
-            {% if survey.question3 %}
-            <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
-            {% else %}
-            <span class="text-red-500"><i class="fas fa-times-circle"></i></span>
-            {% endif %}
-        </div>
-
+    <div>
+      증상여부: {% if survey.question3 %}
+      <span class="text-green-500"><i class="fas fa-check-circle"></i></span>
+      {% else %}
+      <span class="text-red-500"><i class="fas fa-times-circle"></i></span>
+      {% endif %}
     </div>
+  </div>
 
-    {% endif %}
-
+  {% endif %}
 </div>

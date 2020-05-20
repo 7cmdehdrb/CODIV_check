@@ -13,7 +13,7 @@ class Organization(core_model.TimeStampedModel):
     )
     location = models.CharField(max_length=300)
     phone = PhoneField(help_text="Contact phone number")
-    users = models.ManyToManyField("users.User", related_name="users")
+    users = models.ManyToManyField("users.User", related_name="users", blank=True)
 
     def __str__(self):
         return self.name
