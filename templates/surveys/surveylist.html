@@ -1,32 +1,40 @@
-{% extends "base.html"%} 
+{% extends "base.html"%}
 {% block content %}
 
 <div
-  class="container my-10 mx-auto text-center border-2 border-black rounded-xlg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12"
->
-  <div class="flex flex-wrap px-2 py-2 justify-between">
-    {% for survey in surveys %} 
-      {% include "partial/survey_card.html" with survey=survey %} 
-    {% endfor %}
-  </div>
+  class="container my-10 mx-auto text-center border-2 border-black rounded-xlg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
+  <table class="table-auto mx-auto my-5 w-4/5">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">USER</th>
+        <th class="px-4 py-2">이태원</th>
+        <th class="px-4 py-2">해외출국</th>
+        <th class="px-4 py-2">증상여부</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for survey in surveys %}
+      {% include "partial/survey_card.html" with survey=survey %}
+      {% endfor %}
+    </tbody>
+  </table>
 
-  <div class="flex justify-center mx-auto container">
+
+  <!-- <div class="flex justify-center mx-auto container">
     {% if surveys.has_previous %}
     <a href="?{{address}}&page={{ surveys.previous_page_number }}">
       <i class="fas fa-arrow-left text-black hover:text-teal-800"></i>
     </a>
     {% endif %}
 
-    <span class="mx-2"
-      >{{surveys.number}} of {{surveys.paginator.num_pages}}</span
-    >
+    <span class="mx-2">{{surveys.number}} of {{surveys.paginator.num_pages}}</span>
 
     {% if surveys.has_next %}
     <a href="?{{address}}&page={{ surveys.next_page_number }}">
       <i class="fas fa-arrow-right text-black hover:text-teal-800"></i>
     </a>
     {% endif %}
-  </div>
+  </div> -->
 </div>
 
 {% endblock %}

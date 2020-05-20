@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from datetime import datetime
 from django.utils.dateformat import DateFormat
 from django.views.generic import FormView, DetailView, UpdateView, ListView
@@ -8,11 +8,12 @@ from django.core.paginator import Paginator
 from . import forms, models
 from organizations import models as organization_model
 from users import models as user_model
+from users import mixins
 
 # Create your views here.
 
 
-class SurveyView(FormView):
+class SurveyView(mixins.LoggedInOnlyView, FormView):
 
     template_name = "surveys/newSurvey.html"
     form_class = forms.SurveyForm
@@ -24,7 +25,11 @@ class SurveyView(FormView):
         return self.render_to_response(context)
 
     def get_success_url(self):
-        return reverse_lazy("core:core")
+        next_arg = self.request.GET.get("next")
+        if next_arg is not None:
+            return next_arg
+        else:
+            return reverse("core:core")
 
     def get_initial(self):
         initial = super().get_initial()
@@ -55,7 +60,7 @@ class SurveyView(FormView):
         return super().form_valid(form)
 
 
-class SurveyListView(ListView):
+class SurveyListView(mixins.LoggedInOnlyView, mixins.MasterUserOnlyView, ListView):
     def get(self, request):
 
         result = []
@@ -78,13 +83,4 @@ class SurveyListView(ListView):
                 temp = {"user": o["users__nickname"], "option": True}
                 result.append(temp)
 
-        paginator = Paginator(result, 30)
-        page = request.GET.get("page", 1)
-        surveys = paginator.get_page(page)
-        get_copy = request.GET.copy()
-        address = get_copy.pop("page", True) and get_copy.urlencode()
-        return render(
-            request,
-            "surveys/surveylist.html",
-            {"surveys": surveys, "address": address},
-        )
+        return render(request, "surveys/surveylist.html", {"surveys": result},)

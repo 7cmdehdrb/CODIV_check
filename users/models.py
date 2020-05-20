@@ -53,7 +53,9 @@ class User(AbstractUser):
         "organizations.Organization", related_name="desired_organization", blank=True
     )
 
-    email_secret = models.CharField(max_length=20, default=uuid.uuid4().hex[:20])
+    email_secret = models.CharField(
+        max_length=20, default=uuid.uuid4().hex[:20], blank=True
+    )
     email_verified = models.BooleanField(default=False)
 
     def __str__(self):

@@ -4,13 +4,13 @@ from django.views.generic import FormView, DetailView, UpdateView
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from . import forms, models
+from . import forms, models, mixins
 
 
 # Create your views here.
 
 
-class SignUpView(FormView):
+class SignUpView(mixins.LoggedOutOnlyView, FormView):
 
     template_name = "users/signup.html"
     form_class = forms.SignUpForm
@@ -27,14 +27,17 @@ class SignUpView(FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("core:core")
+        next_arg = self.request.GET.get("next")
+        if next_arg is not None:
+            return next_arg
+        else:
+            return reverse("core:core")
 
 
-class LoginView(FormView):
+class LoginView(mixins.LoggedOutOnlyView, FormView):
 
     template_name = "users/login.html"
     form_class = forms.LoginForm
-    success_url = reverse_lazy("core:core")
 
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
@@ -49,10 +52,11 @@ class LoginView(FormView):
 
     def get_success_url(self):
         next_arg = self.request.GET.get("next")
+        print(next_arg)
         if next_arg is not None:
             return next_arg
         else:
-            return reverse("core:core")
+            return reverse_lazy("core:core")
 
 
 def logout_view(request):
@@ -68,7 +72,6 @@ def complete_verification(request, key):
         user.email_secret = ""
         user.save()
         messages.add_message(request, messages.INFO, "인증을 완료하셨습니다!")
-        # to do: add succes message
     except models.User.DoesNotExist:
         messages.add_message(request, messages.ERROR, "인증을 완료할 수 없습니다")
         pass

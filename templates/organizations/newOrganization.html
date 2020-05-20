@@ -11,18 +11,18 @@
         {% csrf_token %}
 
         {{form.master}}
-        {{form.users}}
+        <span style="display: none;">{{form.users}}</span>
 
         <div class="block my-10 text-center border-black border-2 rounded-lg w-1/2 py-5 mx-auto">
-            
+
             {{form.name.label}}
             {{form.name}}
-            <span class="font-bold text-red-600 text-center">{{form.name.errors}}</span>      
+            <span class="font-bold text-red-600 text-center">{{form.name.errors}}</span>
 
         </div>
 
         <div class="block my-10 text-center border-black border-2 rounded-lg w-1/2 py-5 mx-auto">
-            
+
             {{form.location.label}}
             {{form.location}}
             <span class="font-bold text-red-600 text-center">{{form.location.errors}}</span>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="block my-10 text-center border-black border-2 rounded-lg w-1/2 py-5 mx-auto">
-            
+
             {{form.phone.label}}
             {{form.phone}}
             <span class="font-bold text-red-600 text-center">{{form.phone.errors}}</span>

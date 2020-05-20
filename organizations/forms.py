@@ -6,7 +6,10 @@ class OrganizationForm(forms.ModelForm):
     class Meta:
         model = models.Organization
         fields = ("name", "master", "location", "phone", "users")
-        widgets = {"master": forms.HiddenInput(), "users": forms.HiddenInput()}
+        widgets = {
+            "master": forms.HiddenInput(),
+            #  "users": forms.HiddenInput()
+        }
         labels = {
             "name": "그룹이름",
             "location": "주소",
