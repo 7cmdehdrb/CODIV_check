@@ -1,14 +1,14 @@
+import os
 import smtplib
 from email.mime.text import MIMEText
 
 
 def sendVerifyEmail(recvEmail, key):
 
-    sendEmail = "3cmdehdrb@gmail.com"
-    password = "toaru794312@@"
-
-    smtpName = "smtp.gmail.com"  # smtp 서버 주소
-    smtpPort = 587  # smtp 포트 번호
+    sendEmail = os.environ.get("GMAIL_ACCOUNT")
+    password = os.environ.get("GMAIL_PASSWORD")
+    smtpName = os.environ.get("GMAIL_SMTP")
+    smtpPort = os.environ.get("GMAIL_PORT")
 
     html = (
         """\
@@ -42,11 +42,10 @@ def sendVerifyEmail(recvEmail, key):
 
 def sendEmail(recvEmail, title, content):
 
-    sendEmail = "3cmdehdrb@gmail.com"
-    password = "toaru794312@@"
-
-    smtpName = "smtp.gmail.com"  # smtp 서버 주소
-    smtpPort = 587  # smtp 포트 번호
+    sendEmail = os.environ.get("GMAIL_ACCOUNT")
+    password = os.environ.get("GMAIL_PASSWORD")
+    smtpName = os.environ.get("GMAIL_SMTP")
+    smtpPort = os.environ.get("GMAIL_PORT")
 
     text = content
     msg = MIMEText(text)  # MIMEText(text , _charset = "utf8")

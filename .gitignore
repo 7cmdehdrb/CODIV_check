@@ -120,5 +120,5 @@ dmypy.json
 .pyre/
 
 # my settings
-
+.env
 node_modules
