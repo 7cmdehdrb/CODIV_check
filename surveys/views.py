@@ -62,19 +62,19 @@ class SurveyListView(ListView):
 
         organizaion = organization_model.Organization.objects.filter(
             master__username=self.request.user
-        )[0]
+        ).values("users__username")
 
-        user = list(user_model.User.objects.filter(organization__name=organizaion))
-
-        for u in user:
-            servey = models.Survey.objects.filter(
-                user__username=u, date=DateFormat(datetime.now()).format("Y-m-d")
+        for o in organizaion:
+            survey = models.Survey.objects.filter(
+                user__username=o["users__username"],
+                date=DateFormat(datetime.now()).format("Y-m-d"),
             )
 
-            if len(servey) != 0:
-                result.append(servey[0])
+            if len(survey) == 1:
+                result.append(survey[0])
+
             else:
-                temp = {"user": u, "option": True}
+                temp = {"user": o["users__username"], "option": True}
                 result.append(temp)
 
         paginator = Paginator(result, 30)

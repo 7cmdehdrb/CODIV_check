@@ -26,7 +26,7 @@ class CustomUserAdmin(UserAdmin):
                     "age",
                     "gender",
                     "job",
-                    "organization",
+                    "desired_organization",
                     "email_secret",
                     "email_verified",
                 )
@@ -41,6 +41,6 @@ class CustomUserAdmin(UserAdmin):
         "is_superuser",
     )
 
-    filter_horizontal = ("organization",)
+    filter_horizontal = ("desired_organization",)
 
     search_fields = ("nickname", "email", "job__name")

@@ -49,8 +49,8 @@ class User(AbstractUser):
     job = models.ForeignKey(
         "Job", related_name="job", on_delete=models.CASCADE, null=True
     )
-    organization = models.ManyToManyField(
-        "organizations.Organization", related_name="organization", blank=True
+    desired_organization = models.ManyToManyField(
+        "organizations.Organization", related_name="desired_organization", blank=True
     )
 
     email_secret = models.CharField(max_length=20, default=uuid.uuid4().hex[:20])

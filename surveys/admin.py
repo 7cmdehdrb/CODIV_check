@@ -1,5 +1,6 @@
 from django.contrib import admin
 from . import models
+from organizations import models as organization_model
 
 # Register your models here.
 
@@ -25,7 +26,7 @@ class SurveyAdmin(admin.ModelAdmin):
     )
 
     list_filter = (
-        "user__organization__name",
+        "user__desired_organization",
         "question1",
         "question2",
         "question3",
@@ -33,4 +34,4 @@ class SurveyAdmin(admin.ModelAdmin):
         "date",
     )
 
-    search_fields = ("user__username", "user__organization__name")
+    search_fields = ("user__username",)
