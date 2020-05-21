@@ -1,11 +1,12 @@
 from django.shortcuts import render, reverse
 from datetime import datetime
 from django.utils.dateformat import DateFormat
-from django.views.generic import FormView, DetailView, UpdateView, ListView
+from django.views.generic import FormView, DetailView, UpdateView, ListView, View
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.core.paginator import Paginator
 from . import forms, models
+from pushmsg import send_msg
 from organizations import models as organization_model
 from users import models as user_model
 from users import mixins
@@ -13,7 +14,7 @@ from users import mixins
 # Create your views here.
 
 
-class SurveyView(mixins.LoggedInOnlyView, FormView):
+class SurveyView(mixins.LoggedInOnlyView, mixins.VerifiedUserOnlyView, FormView):
 
     template_name = "surveys/newSurvey.html"
     form_class = forms.SurveyForm
@@ -65,11 +66,11 @@ class SurveyListView(mixins.LoggedInOnlyView, mixins.MasterUserOnlyView, ListVie
 
         result = []
 
-        organizaion = organization_model.Organization.objects.filter(
-            master__username=self.request.user
+        organization = organization_model.Organization.objects.filter(
+            master=self.request.user
         ).values("users__username", "users__nickname")
 
-        for o in organizaion:
+        for o in organization:
 
             survey = models.Survey.objects.filter(
                 user__username=o["users__username"],
@@ -84,3 +85,26 @@ class SurveyListView(mixins.LoggedInOnlyView, mixins.MasterUserOnlyView, ListVie
                 result.append(temp)
 
         return render(request, "surveys/surveylist.html", {"surveys": result},)
+
+
+class SurveyConfirmView(View):
+    def get(self, request):
+
+        organization = organization_model.Organization.objects.filter(
+            master=self.request.user
+        ).values("users__username", "users__nickname")
+
+        for o in organization:
+
+            survey = models.Survey.objects.filter(
+                user__username=o["users__username"],
+                date=DateFormat(datetime.now()).format("Y-m-d"),
+            )
+
+            if len(survey) == 1:
+                pass
+
+            else:
+                send_msg(o["users__username"])
+
+        return render(request, "partial/blank.html")

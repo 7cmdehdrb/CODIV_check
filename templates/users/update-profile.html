@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    input {
+        text-align: center;
+    }
+</style>
+
+<div
+    class="container my-10 mx-auto text-center border-2 border-black rounded-lg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
+
+    <h1 class="mx-auto my-5 text-6xl text-red-600"><i class="fas fa-user-circle"></i></h1>
+
+    <form method="POST" action="{% url "user:updateprofile" %}" class="">
+
+        {% csrf_token %}
+
+        <table class="table-auto w-9/12 mx-auto my-10">
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">닉네임</td>
+                    <td class="border px-4 py-2">
+                        {{form.nickname}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">성별</td>
+                    <td class="border px-4 py-2">
+                        {{form.gender}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">나이</td>
+                    <td class="border px-4 py-2">{{form.age}}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">직업</td>
+                    <td class="border px-4 py-2">{{form.job}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="border px-4 py-2"><button class="hover:text-gray-500">수정하기</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </form>
+
+</div>
+
+{% endblock content %}

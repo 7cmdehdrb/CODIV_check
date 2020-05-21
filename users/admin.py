@@ -22,7 +22,6 @@ class CustomUserAdmin(UserAdmin):
             {
                 "fields": (
                     "nickname",
-                    "avatar",
                     "age",
                     "gender",
                     "job",

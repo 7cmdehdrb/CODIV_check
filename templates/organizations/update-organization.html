@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    input {
+        text-align: center;
+    }
+</style>
+
+{% if organization.master == user %}
+
+<div
+    class="container my-10 mx-auto text-center border-2 border-black rounded-lg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
+
+    <form method="POST" action="{% url "organization:updateorganization" organization.pk %}" class="">
+
+        {% csrf_token %}
+
+        <span style="display: none;">{{form.master}}</span>
+
+        <table class="table-auto w-9/12 mx-auto my-10">
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">그룹이름</td>
+                    <td class="border px-4 py-2">
+                        {{form.name}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">주소</td>
+                    <td class="border px-4 py-2">
+                        {{form.location}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">대표전화</td>
+                    <td class="border px-4 py-2">{{form.phone}}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">회원 모집 여부</td>
+                    <td class="border px-4 py-2">{{form.isrecruited}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="border px-4 py-2">그룹 맴버</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="border px-4 py-2">{{form.users}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="border px-4 py-2"><button class="hover:text-gray-500">수정하기</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </form>
+
+</div>
+
+<script>
+
+    const li = document.getElementById("id_users");
+    const me = document.getElementById("userid");
+    const users = li.querySelectorAll("li")
+
+    console.log(me.innerText)
+
+    users.forEach(element => {
+        console.log(element.innerText)
+        if (element.innerText.replace(" ", "") == me.innerText) {
+            element.style.display = "none";
+        }
+    });
+
+</script>
+
+<script>
+    const phone0 = document.getElementById("id_phone_0");
+    const phone1 = document.getElementById("id_phone_1");
+
+    init = () => {
+        phone0.placeholder = "대표번호";
+        phone1.placeholder = "내선번호";
+    }
+
+    init();
+</script>
+
+{% else %}
+
+<script>
+
+    init = () => {
+        location.href = "http://127.0.0.1:8000/organization/error/";
+    }
+
+    init();
+
+</script>
+
+{% endif %}
+
+{% endblock content %}

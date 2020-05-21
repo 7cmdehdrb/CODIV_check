@@ -8,7 +8,10 @@ from . import models
 class OrganizationAdmin(admin.ModelAdmin):
 
     fieldsets = (
-        ("Infomations", {"fields": ("name", "master", "location", "phone", "users")}),
+        (
+            "Infomations",
+            {"fields": ("name", "master", "location", "phone", "users", "isrecruited")},
+        ),
     )
 
     list_display = (
@@ -16,6 +19,7 @@ class OrganizationAdmin(admin.ModelAdmin):
         "master",
         "location",
         "phone",
+        "isrecruited",
     )
 
     filter_horizontal = ("users",)

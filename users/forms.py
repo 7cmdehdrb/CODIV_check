@@ -1,4 +1,5 @@
 from django import forms
+from organizations import models as organization_model
 from . import models
 
 
@@ -77,3 +78,24 @@ class LoginForm(forms.Form):
                 self.add_error("password", forms.ValidationError("비밀번호가 다릅니다"))
         except models.User.DoesNotExist:
             self.add_error("email", forms.ValidationError("해당 유저가 존재하지 않습니다"))
+
+
+class OrganizationForm(forms.ModelForm):
+    class Meta:
+        model = models.User
+
+        fields = ("desired_organization",)
+
+        widgets = {
+            "desired_organization": forms.CheckboxSelectMultiple(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(OrganizationForm, self).__init__(*args, **kwargs)
+        self.fields[
+            "desired_organization"
+        ].queryset = organization_model.Organization.objects.filter(isrecruited=True)
+
+    def save(self, *args, **kwargs):
+        user = super().save()
+        user.save()

@@ -13,7 +13,37 @@ from users import mixins
 
 class OrganizationMenuView(mixins.LoggedInOnlyView, View):
     def get(self, request):
-        return render(request, "organizations/organizationMenu.html")
+
+        result = None
+
+        organization = models.Organization.objects.filter(
+            master=self.request.user
+        ).values("pk")
+
+        if len(organization) != 0:
+            result = organization[0]["pk"]
+
+        return render(
+            request, "organizations/organizationMenu.html", {"organizationpk": result},
+        )
+
+
+class OrganizationUnvalidView(View):
+    def get(self, request):
+        messages.add_message(self.request, messages.ERROR, "잘못된 접근입니다!")
+
+        result = None
+
+        organization = models.Organization.objects.filter(
+            master=self.request.user
+        ).values("pk")
+
+        if len(organization) != 0:
+            result = organization[0]["pk"]
+
+        return render(
+            request, "organizations/organizationMenu.html", {"organizationpk": result},
+        )
 
 
 class OrganizationView(
@@ -43,7 +73,6 @@ class OrganizationView(
         )
 
         if len(organization) != 0:
-            print("??")
             messages.add_message(self.request, messages.ERROR, "그룹 생성은 1회로 제한됩니다")
 
         else:
@@ -51,3 +80,15 @@ class OrganizationView(
             messages.add_message(self.request, messages.INFO, "성공적으로 그룹을 만들었습니다!")
 
         return super().form_valid(form)
+
+
+class OrganizationUpdateView(
+    mixins.LoggedInOnlyView, mixins.VerifiedUserOnlyView, UpdateView
+):
+    model = models.Organization
+    template_name = "organizations/update-organization.html"
+    form_class = forms.OrganizationUpdateForm
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.INFO, "수정 완료!")
+        return reverse_lazy("organization:menu")

@@ -13,4 +13,12 @@ urlpatterns = [
         name="complete_verification",
     ),
     path("<int:pk>/", user_view.UserProfileView.as_view(), name="profile"),
+    path(
+        "update-profile/", user_view.UpdateProfileView.as_view(), name="updateprofile"
+    ),
+    path(
+        "join-organization/",
+        user_view.JoinOrganizationView.as_view(),
+        name="joinorganization",
+    ),
 ]

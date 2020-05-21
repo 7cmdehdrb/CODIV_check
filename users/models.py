@@ -41,7 +41,6 @@ class User(AbstractUser):
         (GENDER_OTHER, "Other"),
     )
 
-    avatar = models.ImageField(upload_to="avatars", blank=True)
     nickname = models.CharField(max_length=20, blank=True)
     age = models.IntegerField(
         default=15, validators=[MinValueValidator(15), MaxValueValidator(99)]
@@ -60,7 +59,7 @@ class User(AbstractUser):
     email_verified = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.username
+        return self.username + "(" + self.nickname + ")"
 
     def verify_email(self):
         if self.email_verified is False:

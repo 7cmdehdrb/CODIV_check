@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    input {
+        text-align: center;
+    }
+</style>
+
+<div
+    class="container my-10 mx-auto text-center border-2 border-black rounded-lg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
+
+    <div class="w-3/4 h-40 mx-auto my-10 p-5 rounded-xlg bg-red-100" style="overflow-y: scroll;">
+
+        <p>그룹 가입 안내</p>
+
+        <p>본 서비스는 가입신청 서비스로, 본인이 가입 희망하는 그룹을 골라 저장할 수 있습니다</p>
+
+        <p>이후, 해당 그룹의 관리자가 승인하면 본인의 설문 기록을 조회할 수 있습니다</p>
+
+        <p>승인 후에는 가입 신청을 취소하여도 그룹에는 남아있을 수도 있습니다</p>
+
+        <p>정말 신청하시겠습니까?</p>
+
+    </div>
+
+    <div>
+        <form>
+            <input type="checkbox" name="agreement" id="agreement">
+            <label for="agreement"><span class="text-red-500 font-bold">[필수]</span> 신청합니다</label>
+        </form>
+    </div>
+
+    <form method="POST" action="{% url "user:joinorganization" %}" class="">
+
+        {% csrf_token %}
+
+        <h1 class="my-8 text-3xl text-blue-800">그룹 목록</h1>
+
+        <div class="w-1/2 h-48 mx-auto my-10 py-5 border-2 rounded-xlg" style="overflow-y: scroll;">
+
+            {{form.desired_organization}}
+
+        </div>
+
+        <button class="mb-6 text-xl hover:text-gray-500">신청하기</button>
+
+    </form>
+
+</div>
+
+
+<script>
+    document.addEventListener('submit', (ev) => {
+        const check = document.getElementById("agreement")
+        if (check.checked) {
+            ;
+        }
+        else {
+            ev.preventDefault();
+            alert("신청에 동의해주세요")
+        }
+    })
+</script>
+
+
+{% endblock content %}

@@ -4,6 +4,7 @@ from django.views.generic import FormView, DetailView, UpdateView
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django import forms as django_forms
 from . import forms, models, mixins
 
 
@@ -52,7 +53,6 @@ class LoginView(mixins.LoggedOutOnlyView, FormView):
 
     def get_success_url(self):
         next_arg = self.request.GET.get("next")
-        print(next_arg)
         if next_arg is not None:
             return next_arg
         else:
@@ -78,7 +78,7 @@ def complete_verification(request, key):
     return redirect(reverse("core:core"))
 
 
-class UserProfileView(mixins.LoggedInOnlyView, DetailView):
+class UserProfileView(mixins.LoggedInOnlyView, mixins.VerifiedUserOnlyView, DetailView):
 
     model = models.User
     context_object_name = "user_obj"
@@ -86,3 +86,48 @@ class UserProfileView(mixins.LoggedInOnlyView, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class UpdateProfileView(
+    mixins.LoggedInOnlyView, mixins.VerifiedUserOnlyView, UpdateView
+):
+
+    model = models.User
+    template_name = "users/update-profile.html"
+    fields = (
+        "nickname",
+        "age",
+        "gender",
+        "job",
+    )
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+        return form
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.INFO, "수정 완료!")
+        return self.request.user.get_absolute_url()
+
+
+class JoinOrganizationView(
+    mixins.LoggedInOnlyView, mixins.VerifiedUserOnlyView, UpdateView
+):
+
+    model = models.User
+    form_class = forms.OrganizationForm
+    template_name = "users/join-organization.html"
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+        return form
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.INFO, "신청을 변경하였습니다")
+        return reverse_lazy("core:core")
