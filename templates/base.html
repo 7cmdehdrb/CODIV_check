@@ -18,34 +18,18 @@
     <style>
       html {
         font-family: "Noto Sans KR", sans-serif;
+        height: 100%;
       }
-      .popup {
-        position: fixed;
-
-        width: 50%;
-        height: auto;
-
-        text-align: center;
-
-        background-color: white;
-        margin: 0 auto;
-        padding: 0;
-
-        border: 1;
-        border-width: 2px;
-        border-style: solid;
-        border-color: black;
-        border-radius: 20px;
-
-        z-index: 10;
+      body {
+        /* background-color: #f9f9f9; */
+        height: 100%;
       }
     </style>
   </head>
 
   <body>
     <header>
-      {% include "partial/messages.html" %}
-      {% include "partial/nav.html" %}
+      {% include "partial/messages.html" %} {% include "partial/nav.html" %}
     </header>
 
     {% block content %} {% endblock %}

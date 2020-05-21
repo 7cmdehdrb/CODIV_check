@@ -18,9 +18,13 @@
         width: 50%;
         line-height: 30px;
 
-        border-radius: 5px;
+        border-radius: 50px;
 
         background-color: #EEEEEE;
+    }
+
+    input:focus{
+        outline: none;
     }
 
     button{
@@ -32,11 +36,11 @@
 
         display: block;
         
-        height: 70px;
         width: 50%;
+        height: 70px;
         line-height: 30px;
 
-        border-radius: 5px;
+        border-radius: 50px;
 
         background-color: #C0FFFC;
     }
@@ -47,9 +51,11 @@
 
 </style>
 
-<div class="container my-10 mx-auto text-center border-2 border-black rounded-lg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
+<div class="container my-10 mx-auto text-center border-2 border-black w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
 
-    <form method="POST" action="{% url "user:login" %}">
+    <h1 class="my-10 text-4xl text-blue-800">LOGIN</h1>
+
+    <form method="POST" action="{% url "user:login" %}" class="my-20">
         {% csrf_token %}
 
         {{form.email}}
@@ -61,7 +67,7 @@
         <button>로그인</button>
     </form>
 
-    <p class="my-5 italic">아직 계정이 없으시면 <a href="{% url "user:signup" %}" class="text-blue-400 font-bold text-xl hover:text-blue-500">여기</a>를 눌러서 계정을 만드세요!</p>
+    <p class="my-16 italic">아직 계정이 없으시면 <a href="{% url "user:signup" %}" class="text-blue-400 font-bold text-xl hover:text-blue-500">여기</a>를 눌러서 계정을 만드세요!</p>
 </div>
 
 {% endblock content %}

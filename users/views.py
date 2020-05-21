@@ -76,3 +76,13 @@ def complete_verification(request, key):
         messages.add_message(request, messages.ERROR, "인증을 완료할 수 없습니다")
         pass
     return redirect(reverse("core:core"))
+
+
+class UserProfileView(mixins.LoggedInOnlyView, DetailView):
+
+    model = models.User
+    context_object_name = "user_obj"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

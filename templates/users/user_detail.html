@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div
+  class="container my-10 mx-auto text-center border-2 border-black rounded-lg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12"
+>
+  <table class="table-auto w-4/5 mx-auto my-10">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">분류</th>
+        <th class="px-4 py-2">정보</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="border px-4 py-2">이름</td>
+        <td class="border px-4 py-2">{{user_obj.nickname}}</td>
+      </tr>
+      <tr>
+        <td class="border px-4 py-2">이메일</td>
+        <td class="border px-4 py-2">{{user_obj.email}}</td>
+      </tr>
+      <tr>
+        <td class="border px-4 py-2">성별</td>
+        {% if user_obj.gender == "male" %}
+        <td class="border px-4 py-2">남성</td>
+        {% elif user_obj.gender == "female" %}
+        <td class="border px-4 py-2">여성</td>
+        {% else %}
+        <td class="border px-4 py-2">기타</td>
+        {% endif %}
+      </tr>
+      <tr>
+        <td class="border px-4 py-2">직업</td>
+        <td class="border px-4 py-2">{{user_obj.job}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}
