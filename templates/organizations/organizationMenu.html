@@ -1,7 +1,9 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
 
 <div
-  class="container my-10 mx-auto text-center border-2 border-black rounded-xlg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12"
+  class="container my-10 mx-auto text-center w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12"
 >
   <a
     href="#"
@@ -16,10 +18,16 @@
     그룹생성
   </a>
   <a
+    href="#"
+    class="block mx-auto w-4/5 py-10 my-5 text-4xl bg-yellow-400 hover:bg-yellow-500 rounded-xlg"
+  >
+    그룹관리
+  </a>
+  <a
     href="{% url "survey:list" %}"
     class="block mx-auto w-4/5 py-10 my-5 text-4xl bg-orange-400 hover:bg-orange-500 rounded-xlg"
   >
-    그룹관리
+    설문보기
   </a>
 </div>
 

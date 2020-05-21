@@ -9,7 +9,7 @@
         <a href="{% url "survey:newsurvey" %}" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
             <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">설문참여</li>
         </a>
-        <a href="#" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
+        <a href="{% url "organization:menu" %}" class="h-full border-b-8 border-white hover:border-gray-600 hover:bg-gray-100">
             <li class="flex h-full items-center justify-center sm:px-2 md:px-4 lg:px-6 xl: px-10">그룹관리</li>
         </a>
         {% if user.is_authenticated %}

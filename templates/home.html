@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
 <div
-  class="container my-10 mx-auto text-center border-2 border-black rounded-xlg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
+  class="container my-10 mx-auto text-center w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
   <a href="{% url "survey:newsurvey" %}"
     class="block mx-auto w-4/5 py-10 my-5 text-4xl bg-red-400 hover:bg-red-500 rounded-xlg">
     설문참여
@@ -13,52 +13,3 @@
 
 
 {% endblock content %}
-
-{% comment %} <input type="text" class="locdat" />
-<button onclick="searchloc()">ㄱㄱㄱ</button> {% endcomment %}
-
-{% comment %} <div id="map" style="width: 90%; height: 350px;" class="mx-auto my-5 rounded-xlg"></div>
-
-<script type="text/javascript"
-  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7c6d83ef5224956025f7d9d4baabaa52&libraries=services,clusterer,drawing,geocoder"></script>
-<script>
-  searchloc = () => {
-    loc = document.querySelector(".locdat").value;
-
-    var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-      mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 1, // 지도의 확대 레벨
-      };
-
-    // 지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(`${loc}`, function (result, status) {
-      // 정상적으로 검색이 완료됐으면
-      if (status === kakao.maps.services.Status.OK) {
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-          map: map,
-          position: coords,
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-          content:
-            '<div style="width:150px;text-align:center;padding:6px 0;">여기!</div>',
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-      }
-    });
-  };
-</script> {% endcomment %}

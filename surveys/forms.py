@@ -19,10 +19,10 @@ class SurveyForm(forms.ModelForm):
         }
 
         labels = {
-            "question1": "이태원 클럽 다녀옴?",
-            "question2": "해외 다녀왔음?",
-            "question3": "기침 등 증상 있음?",
-            "question4": "양심 있음?",
+            "question1": "최근에 이태원에 다녀온적이 있나요?",
+            "question2": "최근에 해외에 다녀온적이 있나요?",
+            "question3": "최근에 기침 등의 증상이 있나요?",
+            "question4": "성실하게 답변하였나요?",
         }
 
     def save(self, *args, **kwargs):

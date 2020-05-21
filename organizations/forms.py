@@ -8,7 +8,8 @@ class OrganizationForm(forms.ModelForm):
         fields = ("name", "master", "location", "phone", "users")
         widgets = {
             "master": forms.HiddenInput(),
-            #  "users": forms.HiddenInput()
+            "name": forms.TextInput(attrs={"placeholder": "주식회사 OOOO"}),
+            "location": forms.TextInput(attrs={"placeholder": "서울특별시 강남구"}),
         }
         labels = {
             "name": "그룹이름",

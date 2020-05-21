@@ -3,8 +3,37 @@
 
 {% block content %}
 
+<style>
+
+    input{
+        text-align: center;
+    }
+
+</style>
+
 <div
-    class="container my-10 mx-auto text-center border-2 border-black rounded-xlg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
+    class="container my-10 mx-auto text-center border-2 border-black rounded-lg w-10/12 sm:w-9/12 md:w-8/12 lg:w-1/2 xl:w-5/12">
+
+    <div class="w-3/4 h-64 mx-auto my-10 bg-red-100" style="overflow-y: scroll;">
+
+        <p>국회는 선전포고, 국군의 외국에의 파견 또는 외국군대의 대한민국 영역안에서의 주류에 대한 동의권을 가진다. 대통령은 국무회의의 의장이 되고, 국무총리는 부의장이 된다.</p>
+
+        <p>국가는 대외무역을 육성하며, 이를 규제·조정할 수 있다. 선거에 있어서 최고득표자가 2인 이상인 때에는 국회의 재적의원 과반수가 출석한 공개회의에서 다수표를 얻은 자를 당선자로 한다.</p>
+
+        <p>제2항과 제3항의 처분에 대하여는 법원에 제소할 수 없다. 국회는 상호원조 또는 안전보장에 관한 조약, 중요한 국제조직에 관한 조약, 우호통상항해조약, 주권의 제약에 관한 조약, 강화조약, 국가나 국민에게 중대한 재정적 부담을 지우는 조약 또는 입법사항에 관한 조약의 체결·비준에 대한 동의권을 가진다.</p>
+
+        <p>공무원의 신분과 정치적 중립성은 법률이 정하는 바에 의하여 보장된다. 모든 국민은 소급입법에 의하여 참정권의 제한을 받거나 재산권을 박탈당하지 아니한다.</p>
+
+        <p>헌법개정안이 제2항의 찬성을 얻은 때에는 헌법개정은 확정되며, 대통령은 즉시 이를 공포하여야 한다. 대통령은 전시·사변 또는 이에 준하는 국가비상사태에 있어서 병력으로써 군사상의 필요에 응하거나 공공의 안녕질서를 유지할 필요가 있을 때에는 법률이 정하는 바에 의하여 계엄을 선포할 수 있다.</p>
+
+    </div>
+
+    <div>
+        <form>
+          <input type="checkbox" name="agreement" id="agreement">
+          <label for="agreement"><span class="text-red-500 font-bold">[필수]</span> 이용약관에 동의합니다</label>
+        </form>
+    </div>
 
     <form action="{% url "organization:neworganization" %}" method="POST">
 
@@ -13,34 +42,51 @@
         {{form.master}}
         <span style="display: none;">{{form.users}}</span>
 
-        <div class="block my-10 text-center border-black border-2 rounded-lg w-1/2 py-5 mx-auto">
-
-            {{form.name.label}}
-            {{form.name}}
-            <span class="font-bold text-red-600 text-center">{{form.name.errors}}</span>
-
-        </div>
-
-        <div class="block my-10 text-center border-black border-2 rounded-lg w-1/2 py-5 mx-auto">
-
-            {{form.location.label}}
-            {{form.location}}
-            <span class="font-bold text-red-600 text-center">{{form.location.errors}}</span>
-
-        </div>
-
-        <div class="block my-10 text-center border-black border-2 rounded-lg w-1/2 py-5 mx-auto">
-
-            {{form.phone.label}}
-            {{form.phone}}
-            <span class="font-bold text-red-600 text-center">{{form.phone.errors}}</span>
-
-        </div>
-
-        <button>SUBMIT</button>
+        <table class="table-auto w-9/12 mx-auto my-10">
+            <tbody>
+              <tr>
+                <td class="border px-4 py-2">{{form.name.label}}</td>
+                <td class="border px-4 py-2">{{form.name}}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">{{form.location.label}}</td>
+                <td class="border px-4 py-2">{{form.location}}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">{{form.phone.label}}</td>
+                <td class="border px-4 py-2">{{form.phone}}</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="border px-4 py-2"><button class="hover:text-gray-500">등록하기</button></td>
+              </tr>
+            </tbody>
+          </table>
 
     </form>
 
 </div>
+
+<script>
+  const phone0 = document.getElementById("id_phone_0");
+  const phone1 = document.getElementById("id_phone_1");
+
+  document.addEventListener('submit', (ev) => {
+        const check = document.getElementById("agreement")
+        if(check.checked){
+            ;
+        }
+        else{
+            ev.preventDefault();
+            alert("이용약관에 동의해주세요")
+        }
+    })
+
+  init = () => {
+    phone0.placeholder = "대표번호";
+    phone1.placeholder = "내선번호";
+  }
+
+  init();
+</script>
 
 {% endblock content %}

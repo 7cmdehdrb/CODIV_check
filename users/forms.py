@@ -16,9 +16,14 @@ class SignUpForm(forms.ModelForm):
             "job",
         )
 
+        widgets = {
+            "email": forms.EmailInput(attrs={"placeholder": "email@naver.com"}),
+            "nickname": forms.TextInput(attrs={"placeholder": "홍길동"}),
+        }
+
         labels = {
             "email": "이메일",
-            "nickname": "별명",
+            "nickname": "이름",
             "password": "비밀번호",
             "re_password": "비밀번호 확인",
             "gender": "성별",
