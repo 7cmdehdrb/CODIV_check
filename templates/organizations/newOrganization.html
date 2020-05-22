@@ -6,6 +6,7 @@
 <style>
 
     input{
+        width: 90%;
         text-align: center;
     }
 
@@ -27,10 +28,8 @@
     </div>
 
     <div>
-        <form>
-          <input type="checkbox" name="agreement" id="agreement">
-          <label for="agreement"><span class="text-red-500 font-bold">[필수]</span> 이용약관에 동의합니다</label>
-        </form>
+      <input type="checkbox" name="agreement" id="agreement" style="width: auto;">
+      <label for="agreement"><span class="text-red-500 font-bold">[필수]</span> 이용약관에 동의합니다</label>
     </div>
 
     <form action="{% url "organization:neworganization" %}" method="POST">

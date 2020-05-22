@@ -1,92 +1,89 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="{% static "css/styles.css" %}">
-  <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <title>CODIV-19 SURVEY</title>
-  <style>
-    html {
-      font-family: "Noto Sans KR", sans-serif;
-      height: 100%;
-    }
-
-    body {
-      /* background-color: #f9f9f9; */
-      height: 100%;
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    {% include "partial/messages.html" %} {% include "partial/nav.html" %}
-  </header>
-
-  {% block content %}
-  {% endblock %}
-
-  <h1 id="myname" style="display: none;">{{user.username}}</h1>
-
-  <footer>
-    {% include "partial/footer.html" %}
-  </footer>
-
-  <script type="text/javascript">
-
-    window.onload = function () {
-      if (window.Notification) {
-        Notification.requestPermission();
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>CODIV-19 SURVEY</title>
+    <style>
+      html {
+        font-family: "Noto Sans KR", sans-serif;
+        height: 100%;
       }
-    }
 
-    const user = document.getElementById("myname").innerText;
+      body {
+        /* background-color: #f9f9f9; */
+        height: 100%;
+      }
+    </style>
+  </head>
 
-    var pusher = new Pusher('532b456bec622945e703', {
-      cluster: 'ap3'
-    });
+  <body>
+    <header>
+      {% include "partial/messages.html" %} {% include "partial/nav.html" %}
+      <h1 id="myname" style="display: none;">{{user.username}}</h1>
+      <h1 id="ipconfig" style="display: none;">192.168.11.231:8000</h1>
+    </header>
 
-    window.onload = function () {
-      Notification.requestPermission();
-    }
+    {% block content %} {% endblock %}
 
-    var channel = pusher.subscribe('all-channel');
-    channel.bind(user, function (data) {
-      notify();
-    });
+    <footer>
+      {% include "partial/footer.html" %}
+    </footer>
 
-    function notify() {
-      if (Notification.permission !== 'granted') {
-
-        var check = confirm('오늘의 설문에 참여해주세요!!');
-
-        if (check) {
-          window.open('http://127.0.0.1:8000/survey/new/');
+    <script type="text/javascript">
+      window.onload = function () {
+        if (window.Notification) {
+          Notification.requestPermission();
         }
+      };
 
+      const user = document.getElementById("myname").innerText;
+      const ip = document.getElementById("ipconfig").innerText;
+
+      var pusher = new Pusher("532b456bec622945e703", {
+        cluster: "ap3",
+      });
+
+      window.onload = function () {
+        Notification.requestPermission();
+      };
+
+      var channel = pusher.subscribe("all-channel");
+      channel.bind(user, function (data) {
+        notify();
+      });
+
+      function notify() {
+        if (Notification.permission !== "granted") {
+          var check = confirm("오늘의 설문에 참여해주세요!!");
+
+          if (check) {
+            window.open(`http://${ip}/survey/new/`);
+          }
+        } else {
+          var notification = new Notification("CODIV CHECKER", {
+            icon:
+              "https://img.favpng.com/23/4/21/computer-icons-virus-vector-graphics-stock-illustration-png-favpng-f0v4ZRAnQT307dzpbpbEvEeny.jpg",
+            body: "오늘의 설문에 참여해주세요!!",
+          });
+
+          notification.onclick = function () {
+            window.open(`http://${ips}/survey/new/`);
+          };
+        }
       }
-      else {
-
-        var notification = new Notification('CODIV CHECKER', {
-          icon: 'https://img.favpng.com/23/4/21/computer-icons-virus-vector-graphics-stock-illustration-png-favpng-f0v4ZRAnQT307dzpbpbEvEeny.jpg',
-          body: '오늘의 설문에 참여해주세요!!',
-        });
-
-        notification.onclick = function () {
-          window.open('http://127.0.0.1:8000/survey/new/');
-        };
-      }
-
-    }
-  </script>
-
-</body>
-
+    </script>
+  </body>
 </html>

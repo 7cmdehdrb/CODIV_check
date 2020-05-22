@@ -14,7 +14,7 @@ from users import mixins
 # Create your views here.
 
 
-class SurveyView(mixins.LoggedInOnlyView, mixins.VerifiedUserOnlyView, FormView):
+class SurveyView(mixins.LoggedInOnlyView, FormView):
 
     template_name = "surveys/newSurvey.html"
     form_class = forms.SurveyForm

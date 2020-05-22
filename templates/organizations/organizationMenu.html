@@ -34,13 +34,14 @@
 
   const group = document.getElementById("group");
   const pk = document.getElementById("pk").innerText;
+  const ip = document.getElementById("ipconfig").innerText;
 
   group.addEventListener("click", (ev) => {
     ev.preventDefault();
     if (pk != "None") {
-      location.href = `http://127.0.0.1:8000/organization/update-organization/${pk}/`;
+      location.href = `http://${ip}/organization/update-organization/${pk}/`;
     } else {
-      location.href = "http://127.0.0.1:8000/organization/new/";
+      location.href = `http://${ip}/organization/new/`;
     }
   })
 

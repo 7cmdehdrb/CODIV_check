@@ -18,7 +18,7 @@ class Organization(core_model.TimeStampedModel):
     isrecruited = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return self.name + "(Manager: " + self.master.nickname + ")"
 
     def get_absolute_url(self):
         return reverse("organization:organizationdetail", kwargs={"pk": self.pk})
