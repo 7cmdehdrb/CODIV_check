@@ -53,6 +53,10 @@
       cluster: 'ap3'
     });
 
+    window.onload = function () {
+      Notification.requestPermission();
+    }
+
     var channel = pusher.subscribe('all-channel');
     channel.bind(user, function (data) {
       notify();
@@ -60,9 +64,16 @@
 
     function notify() {
       if (Notification.permission !== 'granted') {
-        alert('notification is disabled');
+
+        var check = confirm('오늘의 설문에 참여해주세요!!');
+
+        if (check) {
+          window.open('http://127.0.0.1:8000/survey/new/');
+        }
+
       }
       else {
+
         var notification = new Notification('CODIV CHECKER', {
           icon: 'https://img.favpng.com/23/4/21/computer-icons-virus-vector-graphics-stock-illustration-png-favpng-f0v4ZRAnQT307dzpbpbEvEeny.jpg',
           body: '오늘의 설문에 참여해주세요!!',
@@ -72,6 +83,7 @@
           window.open('http://127.0.0.1:8000/survey/new/');
         };
       }
+
     }
   </script>
 

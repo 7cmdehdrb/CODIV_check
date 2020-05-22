@@ -24,4 +24,4 @@ urlpatterns = [
     path("survey/", include("surveys.urls", namespace="survey")),
     path("organization/", include("organizations.urls", namespace="organization")),
     path("admin/", admin.site.urls),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
